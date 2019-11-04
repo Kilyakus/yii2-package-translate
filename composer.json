@@ -1,0 +1,21 @@
+{
+    "name": "kilyakus/yii2-package-translate",
+    "type": "yii2-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kilyakus",
+            "email": "aleksandr.kilyakov@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": ">=2.0.0",
+        "kilyakus/yii2-validator-escape": "*",
+        "kilyakus/yii2-widget-flag": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "kilyakus\\package\\translate\\": "src"
+        }
+    }
+}
