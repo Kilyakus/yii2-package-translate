@@ -2,7 +2,7 @@
 namespace kilyakus\package\translate\models;
 
 use Yii;
-use kilyakus\package\translate\validators\EscapeValidator;
+use kilyakus\validator\escape\EscapeValidator;
 
 class TranslateText extends \kilyakus\modules\components\ActiveRecord
 {
