@@ -2,7 +2,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use kilyakus\widget\flag\Flag;
-use kilyakus\package\translate\widgets\Redactor;
+use kilyakus\widget\redactor\Redactor;
 ?>
 
 <?php foreach (Yii::$app->urlManager->languages as $key => $translation){
@@ -10,17 +10,8 @@ use kilyakus\package\translate\widgets\Redactor;
     if($attribute == 'title'){
         $content = $form->field($model, 'translations['.$translation.']['.$attribute.']')->label(Yii::t('easyii',ucwords($attribute)));
     }else{
-        $content = $form->field($model, 'translations['.$translation.']['.$attribute.']')->widget(Redactor::className(),[
-            'options' => [
-                'minHeight' => 200,
-                'maxHeight' => 400,
-                'imageUpload' => Url::to(['/admin/redactor/upload', 'dir' => 'userfiles/' . Yii::$app->user->id . '/images']),
-                'fileUpload' => Url::to(['/admin/redactor/upload', 'dir' => 'userfiles/' . Yii::$app->user->id . '/images']),
-                'plugins' => ['fullscreen']
-            ]
-        ])->label(Yii::t('easyii',ucwords($attribute)));
+        $content = $form->field($model, 'translations['.$translation.']['.$attribute.']')->widget(Redactor::className(),$redactorOptions)->label(Yii::t('easyii',ucwords($attribute)));
     }
-
 
     $languages[$attribute][$key] = [
         'label' => Flag::widget(['pluginSupport' => false, 'flag' => $translation, 'options' => ['class' => 'img-circle', 'width' => 22, 'height' => 22]]),
