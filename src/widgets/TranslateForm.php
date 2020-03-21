@@ -24,7 +24,7 @@ class TranslateForm extends Widget
             'tabsize' => 2,
             'minHeight' => 150,
             'maxHeight' => 400,
-            'focus' => true,
+            'focus' => false,
             // 'toolbar' => [
             //     ['style1', ['style', 'clear', 'hr']],
             //     ['insert', ['link', 'picture', 'video', 'table']],

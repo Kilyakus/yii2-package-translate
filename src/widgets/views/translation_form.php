@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\Html;
+use yii\bootstrap\Tabs;
 use kilyakus\widget\flag\Flag;
 use kilyakus\widget\redactor\Redactor;
 ?>
@@ -20,12 +21,7 @@ use kilyakus\widget\redactor\Redactor;
     ];
 } ?>
 
-<div class="language-tabs">
-    <?= \yii\bootstrap\Tabs::widget([
-        'encodeLabels' => false,
-        'items' => $languages[$attribute],
-    ]) ?>
-</div>
+<?= Html::tag('div', Tabs::widget(['encodeLabels' => false, 'items' => $languages[$attribute]]), ['class' => 'language-tabs']); ?>
 
 <?php 
 $css = <<< CSS
@@ -35,8 +31,9 @@ $css = <<< CSS
 .language-tabs > .nav-tabs > li.active > a,
 .language-tabs > .nav-tabs > li.active > a:hover,
 .language-tabs > .nav-tabs > li.active > a:focus {background:#FFF;border-color:#ebedf2;border-bottom-color:transparent;}
-.language-tabs .tab-content {margin-bottom:2rem;padding:1rem;background:#FFF;border:1px solid #ebedf2;border-top:0;border-radius:0 0 4px 4px;box-shadow:0px 0px 13px 0px rgba(82, 63, 105, 0.05);}
-.language-tabs .tab-content .form-group {margin-bottom:0;}
+.language-tabs > .tab-content {margin-bottom:2rem;padding:1rem;background:#FFF;border:1px solid #ebedf2;border-top:0;border-radius:0 0 4px 4px;box-shadow:0px 0px 13px 0px rgba(82, 63, 105, 0.05);}
+.language-tabs > .tab-content .form-group,
+.language-tabs > .tab-content .form-group .note-editor {margin-bottom:0;}
 CSS;
 $this->registerCss($css, ["type" => "text/css"], "behavior-translate" );
 ?>

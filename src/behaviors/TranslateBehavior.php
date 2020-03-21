@@ -82,14 +82,16 @@ class TranslateBehavior extends \yii\base\Behavior
 
             if($post = Yii::$app->request->post('TranslateText')['translations']){
 
+                $ownerClass = $this->owner;
+
                 foreach ($post as $lang => $translation)
                 {
-                    if(!$translate = TranslateText::find()->where(['class' => $this->owner::className(), 'item_id' => $this->owner->primaryKey, 'lang' => $lang])->one()){
+                    if(!$translate = TranslateText::find()->where(['class' => $ownerClass::className(), 'item_id' => $this->owner->primaryKey, 'lang' => $lang])->one()){
                         $translate = new TranslateText();
                     }
 
                     $translate->load(['TranslateText' => $translation]);
-                    $translate->class = $this->owner::className();
+                    $translate->class = $ownerClass::className();
                     $translate->item_id = $this->owner->primaryKey;
                     $translate->lang = $lang;
                     $translate->save();
@@ -98,7 +100,7 @@ class TranslateBehavior extends \yii\base\Behavior
 
                 foreach ($post as $lang => $translation)
                 {
-                    $translate = TranslateText::find()->where(['class' => $this->owner::className(), 'item_id' => $this->owner->primaryKey, 'lang' => $lang])->one();
+                    $translate = TranslateText::find()->where(['class' => $ownerClass::className(), 'item_id' => $this->owner->primaryKey, 'lang' => $lang])->one();
                     
                     if($translate && !$translation['title'] && isset($this->owner->title)){
                         $translate->title = $this->owner->title;
