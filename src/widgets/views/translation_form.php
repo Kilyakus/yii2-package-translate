@@ -4,20 +4,36 @@ use yii\helpers\Html;
 use yii\bootstrap\Tabs;
 use kilyakus\widget\flag\Flag;
 use kilyakus\widget\redactor\Redactor;
+use kilyakus\package\taggable\widgets\TagsInput;
 ?>
 
-<?php foreach (Yii::$app->urlManager->languages as $key => $translation){
+<?php foreach (Yii::$app->urlManager->languages as $key => $language){
 
-    if($attribute == 'title'){
-        $content = $form->field($model, 'translations['.$translation.']['.$attribute.']')->label(Yii::t('easyii',ucwords($attribute)));
-    }else{
-        $content = $form->field($model, 'translations['.$translation.']['.$attribute.']')->widget(Redactor::className(),$redactorOptions)->label(Yii::t('easyii',ucwords($attribute)));
+    $value = !empty($model->translations[$language][$attribute]) ? $model->translations[$language][$attribute] : $model->{$attribute};
+
+    if($attribute == 'title' || $attribute == 'h1')
+    {
+        // $content = $form->field($model, 'translations['.$language.']['.$attribute.']')->label(Yii::t('easyii',ucwords($attribute)));
+        $content = Html::activeLabel($model, $attribute);
+        $content .= Html::activeTextInput($model, 'translations['.$language.']['.$attribute.']', ['class' => 'form-control', 'value' => $value]);
+    }elseif($attribute == 'keywords')
+    {
+        $content = Html::activeLabel($model, $attribute);
+        $content .= TagsInput::widget(['model' => $model, 'attribute' => 'translations['.$language.']['.$attribute.']', 'options' => ['value' => $value, 'class' => 'form-control']]);
+    }else
+    {
+        // $content = $form->field($model, 'translations['.$language.']['.$attribute.']')->widget(Redactor::className(),$redactorOptions)->label(Yii::t('easyii',ucwords($attribute)));
+        $redactorOptions['model'] = $model;
+        $redactorOptions['attribute'] = 'translations['.$language.']['.$attribute.']';
+        $redactorOptions['options']['value'] = $value;
+        $content = Html::activeLabel($model, Yii::t('easyii',ucwords($attribute)));
+        $content .= Redactor::widget($redactorOptions);
     }
 
-    $languages[$attribute][$key] = [
-        'label' => Flag::widget(['pluginSupport' => false, 'flag' => $translation, 'options' => ['class' => 'img-circle', 'width' => 22, 'height' => 22]]),
+    $languages[$attribute][$language] = [
+        'label' => Flag::widget(['pluginSupport' => false, 'flag' => $language, 'options' => ['class' => 'img-circle', 'width' => 22, 'height' => 22]]),
         'content' => $content,
-        'active' => $translation == Yii::$app->language
+        'active' => $language == Yii::$app->language
     ];
 } ?>
 

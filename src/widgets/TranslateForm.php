@@ -87,11 +87,7 @@ class TranslateForm extends Widget
         $translations = TranslateText::find()->where(['class' => $this->model::className(), 'item_id' => $this->model->primaryKey])->asArray()->all();
         $translations = ArrayHelper::index($translations, 'lang');
 
-        if(get_class($this->model->translateText) == get_class(new TranslateText())){
-            $model = $this->model->translateText;
-        }else{
-            $model = new TranslateText();
-        }
+        $model = $this->model;
 
         $model->translations = $translations;
 
@@ -103,6 +99,14 @@ class TranslateForm extends Widget
 
                 if(isset($this->model->title)){
                     $fields['title'] = $this->model->title;
+                }
+
+                if(isset($this->model->h1)){
+                    $fields['h1'] = $this->model->h1;
+                }
+
+                if(isset($this->model->keywords)){
+                    $fields['keywords'] = $this->model->keywords;
                 }
 
                 if(isset($this->model->short)){
@@ -122,7 +126,6 @@ class TranslateForm extends Widget
         }
 
         echo $this->render('translation_form', [
-            'form' => $this->form,
             'model' => $model,
             'attribute' => $this->attribute,
             'redactorOptions' => $this->redactorOptions,

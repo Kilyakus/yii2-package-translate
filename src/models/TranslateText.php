@@ -6,8 +6,6 @@ use kilyakus\validator\escape\EscapeValidator;
 
 class TranslateText extends \kilyakus\modules\components\ActiveRecord
 {
-    public $translations = [];
-
     public static function tableName()
     {
         return 'translatetext';
@@ -17,8 +15,8 @@ class TranslateText extends \kilyakus\modules\components\ActiveRecord
     {
         return [
             [['lang'], 'required'],
-            [['lang', 'title', 'short', 'text', 'description'], 'trim'],
-            [['lang', 'title'], 'string', 'max' => 255],
+            [['lang', 'title', 'h1', 'keywords', 'short', 'text', 'description'], 'trim'],
+            [['lang', 'title', 'h1', 'keywords'], 'string', 'max' => 255],
             [['short', 'text', 'description'], 'safe'],
             [['lang', 'title'], EscapeValidator::className()],
         ];
@@ -29,6 +27,8 @@ class TranslateText extends \kilyakus\modules\components\ActiveRecord
         return [
             'lang' => 'Language',
             'title' => Yii::t('easyii', 'Title'),
+            'h1' => Yii::t('easyii', 'H1 header'),
+            'keywords' => Yii::t('easyii', 'Keywords'),
             'short' => Yii::t('easyii', 'Short'),
             'text' => Yii::t('easyii', 'Text'),
             'description' => Yii::t('easyii', 'Description'),
