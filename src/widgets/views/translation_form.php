@@ -39,7 +39,7 @@ use kilyakus\package\taggable\widgets\TagsInput;
 
 <?= Html::tag('div', Tabs::widget(['encodeLabels' => false, 'items' => $languages[$attribute]]), ['class' => 'language-tabs']); ?>
 
-<?php 
+<?php
 $css = <<< CSS
 .language-tabs {width:100%;position:relative;}
 .language-tabs > .nav-tabs {margin:0;border-bottom:1px solid #ebedf2;}

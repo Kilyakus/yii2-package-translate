@@ -79,7 +79,7 @@ class TranslateForm extends Widget
             $this->redactorOptions = ArrayHelper::merge($this->redactorPresets, $this->redactorOptions);
         }
 
-        $this->redactorOptions['uploadUrl'] = Url::to(['/redactor/upload/images', 'dir' => '/redactor/' . Yii::$app->user->id . '/images']);
+        $this->redactorOptions['uploadUrl'] = $this->uploadUrl ? $this->uploadUrl : Url::to(['/redactor/upload/images', 'dir' => '/redactor/' . Yii::$app->user->id . '/images']);
     }
 
     public function run()
